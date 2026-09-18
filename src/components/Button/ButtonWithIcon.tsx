@@ -14,12 +14,13 @@ const ButtonWithIcon = ({
   hover,
 }: ButtonWithIconProps) => {
   return (
-    <div
-      className={`${color} ${textColor} ${hover} h-10 w-54 px-4 py-2 flex items-center justify-center gap-2 rounded-xl border border-gray-200`}
+    <button
+      type="button"
+      className={`${color} ${textColor} ${hover} flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2 whitespace-nowrap sm:w-54`}
     >
       <img src={`${icon}`} alt="icon" className="h-4 w-4 flex" />
       {text}
-    </div>
+    </button>
   );
 };
 

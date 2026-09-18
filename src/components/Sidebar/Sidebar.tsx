@@ -2,7 +2,11 @@ import home from "../../assets/home.svg";
 import clannitLogo from "../../assets/clannit-logo.png";
 import { useState } from "react";
 
-const Sidebar = () => {
+interface SidebarProps {
+  onNavigate?: () => void;
+}
+
+const Sidebar = ({ onNavigate }: SidebarProps) => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const menuItems = [
     {
@@ -69,7 +73,10 @@ const Sidebar = () => {
           {menuItems.map((menuItem) => (
             <li key={menuItem.name}>
               <button
-                onClick={() => setActiveItem(menuItem.name)}
+                onClick={() => {
+                  setActiveItem(menuItem.name);
+                  onNavigate?.();
+                }}
                 type="button"
                 className={`${activeItem === menuItem.name ? "bg-[#272E46] text-white" : "text-gray-700"} flex w-full items-center gap-3 rounded-md py-3 px-3 text-left transition-colors hover:bg-[#272E46] hover:text-white`}
               >

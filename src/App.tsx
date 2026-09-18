@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ButtonWithIcon from "./components/Button/ButtonWithIcon.tsx";
 import Sidebar from "./components/Sidebar/Sidebar.tsx";
 import StatCard from "./components/StatCard/StatCard.tsx";
@@ -77,21 +78,33 @@ const cardData = [
 // ];
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <div className="flex min-h-screen w-full">
-      <aside className="flex min-h-screen w-63 shrink-0 flex-col border-r border-gray-200 bg-white">
-        <Sidebar />
+      {isSidebarOpen && (
+        <button
+          type="button"
+          aria-label="Close navigation"
+          onClick={() => setIsSidebarOpen(false)}
+          className="fixed inset-0 z-30 bg-black/30 lg:hidden"
+        />
+      )}
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex w-72 shrink-0 -translate-x-full flex-col border-r border-gray-200 bg-white transition-transform lg:static lg:min-h-screen lg:w-63 lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : ""}`}
+      >
+        <Sidebar onNavigate={() => setIsSidebarOpen(false)} />
       </aside>
 
-      <section className="min-h-screen flex-1 bg-gray-100 text-black">
-        <Topbar />
+      <section className="min-h-screen min-w-0 flex-1 bg-gray-100 text-black">
+        <Topbar onMenuClick={() => setIsSidebarOpen(true)} />
 
         {/* page title - penalties*/}
-        <div className="flex justify-between px-6 pt-10">
-          <span className=" text-2xl font-semibold flex items-center justify-center">
+        <div className="flex flex-col gap-4 px-4 pt-6 sm:px-6 sm:pt-10 lg:flex-row lg:items-center lg:justify-between">
+          <span className="flex items-center text-2xl font-semibold">
             Penalties Report
           </span>
-          <div className="flex flec-col gap-2 ">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:flex">
             <ButtonWithIcon
               icon={calender}
               text="May 01 - May 31,2025"
@@ -109,7 +122,7 @@ function App() {
           </div>
         </div>
 
-        <div className="flex gap-4 p-6">
+        <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
           {cardData.map((card, index) => (
             <StatCard
               key={index}

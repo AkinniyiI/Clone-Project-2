@@ -9,7 +9,7 @@ type StatCardProps = {
 const StatCard = ({ title, value, description, valueColor }: StatCardProps) => {
   return (
     <>
-      <div className="w-full max-w-81 rounded-[14px] border border-[#dfe3e8] bg-white px-5.5 py-5">
+      <div className="w-full rounded-[14px] border border-[#dfe3e8] bg-white px-5.5 py-5">
       {/* Title */}
       <p className="mb-2 text-[13px] font-medium uppercase text-[#63708a]">
         {title}
