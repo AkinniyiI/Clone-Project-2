@@ -12,6 +12,21 @@
 // }
 
 import { useState } from "react";
+import type { ChangeEvent } from "react";
+
+interface PenaltyRow {
+  id: number;
+  name: string;
+  item: string;
+  amount: string;
+  penalty: string;
+  startDate: string;
+  closedDate?: string;
+  closedBy?: string;
+}
+
+type Tab = "Active" | "Closed";
+type ModalType = "lift" | "Revert";
 
 const initialActiveData = [
   {
@@ -70,15 +85,15 @@ const initialClosedData = [
 ];
 
 const PenaltiesTable = () => {
-  const [activeTab, setActiveTab] = useState("Active");
-  const [activeList, setActiveList] = useState(initialActiveData);
-  const [closedList, setClosedList] = useState(initialClosedData);
+  const [activeTab, setActiveTab] = useState<Tab>("Active");
+  const [activeList, setActiveList] = useState<PenaltyRow[]>(initialActiveData);
+  const [closedList, setClosedList] = useState<PenaltyRow[]>(initialClosedData);
   //checkboxes
-  const [selectedIds, setSelectedIds] = useState([]);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   //modal state
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState<PenaltyRow | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("lift");
+  const [modalType, setModalType] = useState<ModalType>("lift");
 
   const FilterIcon = () => (
     <svg
@@ -97,14 +112,17 @@ const PenaltiesTable = () => {
   );
 
   //toggle selection
-  function handleSelectAll(e, currentData: any) {
+  function handleSelectAll(
+    e: ChangeEvent<HTMLInputElement>,
+    currentData: PenaltyRow[],
+  ) {
     if (e.target.checked) {
       setSelectedIds(currentData.map((item) => item.id));
     } else {
       setSelectedIds([]);
     }
   }
-  const handleSelectOne = (id) => {
+  const handleSelectOne = (id: number) => {
     if (selectedIds.includes(id)) {
       setSelectedIds(selectedIds.filter((item) => item !== id));
     } else {
@@ -113,13 +131,13 @@ const PenaltiesTable = () => {
   };
 
   // functions to set modal for lifting/ reverting penalties
-  const handleOpenLiftModal = (student: any) => {
+  const handleOpenLiftModal = (student: PenaltyRow) => {
     setSelectedStudent(student);
     setIsModalOpen(true);
     setModalType("lift");
   };
 
-  const handleClosedActionModal = (student: any) => {
+  const handleClosedActionModal = (student: PenaltyRow) => {
     setSelectedStudent(student);
     setModalType("Revert");
     setIsModalOpen(true);
