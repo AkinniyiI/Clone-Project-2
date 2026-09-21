@@ -184,7 +184,7 @@ const PenaltiesTable = () => {
 
   return (
     <div className="min-h-screen px-4 py-4 font-sans sm:px-6">
-      <div className="mx-auto max-w-7xl border border-gray-100 bg-white p-4 pb-20 shadow-sm sm:p-6">
+      <div className="w-full  border border-gray-100 bg-white p-4 pb-20 shadow-sm sm:p-6">
         {/* Tabs */}
         <div className="border-b border-gray-200 mb-6">
           <nav className="-mb-px flex space-x-8">
@@ -218,8 +218,8 @@ const PenaltiesTable = () => {
         </div>
 
         {/* Table Container */}
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-245 border-collapse text-left">
+        <div className="w-full overflow-x-auto">
+          <table className="w-full min-w-0 table-fixed border-collapse text-left text-xs sm:text-sm">
             <thead>
               <tr className="bg-gray-100 text-[#737373] text-sm font-semibold tracking-wider">
                 <th className="py-3 px-4 w-10 border-b border-gray-200">
